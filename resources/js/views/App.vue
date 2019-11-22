@@ -5,13 +5,17 @@
                 :mini-variant.sync="mini"
                 permanent
                 app
+                v-if="authed()"
         >
             <v-list-item>
                 <v-list-item-avatar>
-                    <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+                   <v-avatar color="primary" size="38">
+                       <span class="white--text headline" v-if="authed()">{{$auth.user().name[0]}}</span>
+                       <v-icon color="white" v-else>mdi-account-circle</v-icon>
+                   </v-avatar>
                 </v-list-item-avatar>
 
-                <v-list-item-title>Username</v-list-item-title>
+                <v-list-item-title>{{this.$auth.user().name != null ? this.$auth.user().name : "Unknown"}}</v-list-item-title>
 
                 <v-btn
                         icon
@@ -24,26 +28,30 @@
             <v-divider></v-divider>
 
             <v-list dense>
-                <v-list-item
-                        v-for="item in items"
-                        :key="item.title"
-                        link
-                        :to="item.to"
-                >
-                    <v-list-item-icon>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-
-                    <v-list-item-content>
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
+                <v-list-item v-if="" link to="/">
+                    <v-list-item-icon><v-icon>mdi-home</v-icon></v-list-item-icon>
+                    <v-list-item-content><v-list-item-title>Home</v-list-item-title></v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="" link to="/topics">
+                    <v-list-item-icon><v-icon>mdi-format-list-bulleted-square</v-icon></v-list-item-icon>
+                    <v-list-item-content><v-list-item-title>Topics</v-list-item-title></v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="" link to="/dashboard">
+                    <v-list-item-icon><v-icon>mdi-view-dashboard-variant</v-icon></v-list-item-icon>
+                    <v-list-item-content><v-list-item-title>Dashboard</v-list-item-title></v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="isAdmin()" link to="/admin">
+                    <v-list-item-icon><v-icon>mdi-monitor-dashboard</v-icon></v-list-item-icon>
+                    <v-list-item-content><v-list-item-title>Admin Dashboard</v-list-item-title></v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="$auth.check()" @click.prevent="$auth.logout()">
+                    <v-list-item-icon><v-icon>mdi-logout-variant</v-icon></v-list-item-icon>
+                    <v-list-item-content><v-list-item-title>Logout</v-list-item-title></v-list-item-content>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-content>
-            <v-container>
-                <router-view></router-view>
-            </v-container>
+            <router-view></router-view>
         </v-content>
     </v-app>
 </template>
@@ -52,12 +60,13 @@
         data () {
             return {
                 drawer: true,
-                items: [
-                    { title: 'Home', icon: 'dashboard', to: '/' },
-                    { title: 'My Account', icon: 'question_answer', to: 'topics' },
-                ],
                 mini: true,
             }
         },
+        methods: {
+            log() {
+                console.log(this.$auth.user().name);
+            },
+        }
     }
 </script>

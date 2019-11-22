@@ -56,13 +56,13 @@
                         password_confirmation: app.password_confirmation
                     },
                     success: function () {
-                        app.success = true
+                        app.success = true;
                         this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
                     },
                     error: function (res) {
-                        console.log(res.response.data.errors)
-                        app.has_error = true
-                        app.error = res.response.data.error
+                        console.log(res.response.data.errors);
+                        app.has_error = true;
+                        app.error = res.response.data.error;
                         app.errors = res.response.data.errors || {}
                     }
                 })

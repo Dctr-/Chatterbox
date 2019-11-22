@@ -37,18 +37,19 @@ Vue.component('app', require('./views/App.vue').default);
  */
 
 const vuetify = new Vuetify({
-    icons: {
-        iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4'
-    },
     theme: {
-        primary: '#2196f3',
-        secondary: '#03a9f4',
-        accent: '#9c27b0',
-        error: '#f44336',
-        warning: '#ff9800',
-        info: '#009688',
-        success: '#4caf50'
-    }
+        themes: {
+            light: {
+                primary: '#2196f3',
+                secondary: '#03a9f4',
+                accent: '#9c27b0',
+                error: '#f44336',
+                warning: '#ff9800',
+                info: '#009688',
+                success: '#4caf50'
+            },
+        },
+    },
 });
 
 Vue.router = router;
@@ -59,8 +60,22 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`;
 Vue.use(VueAuth, auth);
 
+Vue.mixin({
+    methods: {
+        authed() {
+            return this.$auth.check();
+        },
+        required() {
+            return value => !!value || '';
+        },
+        isAdmin() {
+            return this.$auth.user().role == 2;
+        }
+    }
+});
+
 const app = new Vue({
     el: '#app',
     vuetify,
-    router
-}).$mount('#app');
+    router,
+});

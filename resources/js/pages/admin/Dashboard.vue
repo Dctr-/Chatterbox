@@ -1,17 +1,17 @@
 <template>
-    <div class="container">
-        <div class="card card-default">
-            <div class="card-header">Admin Dashboard</div>
-            <div class="card-body">
-                Bienvenue sur votre dashboard administrateur
-            </div>
-        </div>
-    </div>
+    <v-container>
+        <h1>Admin Dashboard</h1>
+        <userTable></userTable>
+    </v-container>
 </template>
 <script>
+    import userTable from '../../components/UserTable.vue';
     export default {
         mounted() {
             //
+        },
+        components: {
+            userTable,
         }
     }
 </script>

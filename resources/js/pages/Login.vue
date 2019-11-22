@@ -1,26 +1,38 @@
 <template>
-    <div class="container">
-        <div class="card card-default">
-            <div class="card-header">Connexion</div>
-            <div class="card-body">
-                <div class="alert alert-danger" v-if="has_error">
-                    <p>Erreur, impossible de se connecter avec ces identifiants.</p>
-                </div>
-                <form autocomplete="off" @submit.prevent="login" method="post">
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-control" placeholder="user@example.com"
-                               v-model="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" class="form-control" v-model="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-default">Connexion</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <v-container style="height: 100%;">
+        <v-spacer style="height: 15%"></v-spacer>
+            <v-card class="mx-auto" max-width="450">
+                <v-card-text>
+                    <v-flex class="full-width">
+                        <img alt="Chatterbox Logo" src="../../assets/Chatterbox_Black_Transparent.svg" id="logo">
+                    </v-flex>
+                    <v-form ref="form" class="pa-3">
+                        <v-text-field
+                                v-model="email"
+                                :rules="[emailRule, required()]"
+                                type="email"
+                                label="Email"
+                                prepend-icon="mdi-email"
+                                class="pb-2"
+                        ></v-text-field>
+                        <v-text-field
+                                v-model="password"
+                                :rules="[required()]"
+                                type="password"
+                                label="Password"
+                                prepend-icon="mdi-lock-question"
+                                class="pb-2"
+                        ></v-text-field>
+                        <v-flex class="text-sm-center">
+                            <v-btn color="primary" class="ma-auto" @click="login()">Login</v-btn>
+                        </v-flex>
+                        <v-flex class="text-sm-center pt-4" v-show="has_error">
+                            <p class="error--text mb-0">Invalid login, try again.</p>
+                        </v-flex>
+                    </v-form>
+                </v-card-text>
+            </v-card>
+    </v-container>
 </template>
 <script>
     export default {
@@ -28,7 +40,9 @@
             return {
                 email: null,
                 password: null,
-                has_error: false
+                valid: true,
+                has_error: false,
+                emailRule: v => /.+@.+/.test(v) || 'E-mail must be valid',
             }
         },
         mounted() {
@@ -36,21 +50,22 @@
         },
         methods: {
             login() {
+                if(!this.$refs.form.validate()) return;
                 // get the redirect object
-                var redirect = this.$auth.redirect()
-                var app = this
+                var redirect = this.$auth.redirect();
+                var self = this;
                 this.$auth.login({
                     params: {
-                        email: app.email,
-                        password: app.password
+                        email: self.email,
+                        password: self.password
                     },
                     success: function () {
                         // handle redirection
-                        const redirectTo = redirect ? redirect.from.name : this.$auth.user().role === 2 ? 'admin.dashboard' : 'dashboard'
-                        this.$router.push({name: redirectTo})
+                        const redirectTo = redirect ? redirect.from.name : this.$auth.user().role == 2 ? 'admin.dashboard' : 'dashboard'
+                        this.$router.push({name: redirectTo}).catch(err => {console.log(err)});
                     },
                     error: function () {
-                        app.has_error = true
+                        self.has_error = true
                     },
                     rememberMe: true,
                     fetchUser: true
@@ -59,3 +74,10 @@
         }
     }
 </script>
+
+<style scoped>
+    #logo {
+        width: 100%;
+        filter: invert(0.2);
+    }
+</style>

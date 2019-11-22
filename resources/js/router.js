@@ -2,8 +2,8 @@ import './bootstrap';
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from './components/Home';
-import Topics from "./components/Topics";
+import Home from './pages/Home';
+import Topics from "./pages/Topics";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/user/Dashboard";
@@ -17,7 +17,15 @@ const routes = [
         name: 'home',
         component: Home,
         meta: {
-            auth: undefined
+            auth: true
+        }
+    },
+    {
+        path: '/topics',
+        name: 'topics',
+        component: Topics,
+        meta: {
+            auth: true
         }
     },
     {
@@ -51,7 +59,7 @@ const routes = [
         name: 'admin.dashboard',
         component: AdminDashboard,
         meta: {
-            auth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
+            auth: {roles: "2", redirect: {name: 'login'}, forbiddenRedirect: '/403'}
         }
     },
 ];
