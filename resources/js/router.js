@@ -8,6 +8,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/user/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
+import error403 from "./pages/error403";
+import error404 from "./pages/error404";
 
 Vue.use(Router);
 
@@ -44,7 +46,6 @@ const routes = [
             auth: false
         }
     },
-    // USER ROUTES
     {
         path: '/dashboard',
         name: 'dashboard',
@@ -52,6 +53,16 @@ const routes = [
         meta: {
             auth: true
         }
+    },
+    {
+        path: '/403',
+        name: '403',
+        component: error403,
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: error404,
     },
     // ADMIN ROUTES
     {

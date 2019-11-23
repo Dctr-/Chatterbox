@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role',
+        'username', 'firstName', 'lastName', 'email', 'role',
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -26,6 +26,10 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin() {
+        return $this->role == 2;
+    }
 
     public function getJWTIdentifier()
     {

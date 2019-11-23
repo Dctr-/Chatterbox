@@ -11,6 +11,7 @@ import VueAxios from 'vue-axios'
 import axios from 'axios'
 import router from './router';
 import VueRouter from "vue-router";
+import moment from "moment";
 
 require('./bootstrap');
 
@@ -70,6 +71,18 @@ Vue.mixin({
         },
         isAdmin() {
             return this.$auth.user().role == 2;
+        },
+        log(any, any2) {
+            console.log(any, any2);
+        },
+        formatDate(time) {
+            return moment(time).format('MMMM Do, YYYY');
+        },
+        formatTimeRelative(time) {
+            return moment(time).calendar();
+        },
+        formatDateSpecific(time) {
+            return moment(time).format('MMMM Do YYYY, h:mm a');
         }
     }
 });

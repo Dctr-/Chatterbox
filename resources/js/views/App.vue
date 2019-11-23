@@ -10,12 +10,12 @@
             <v-list-item>
                 <v-list-item-avatar>
                    <v-avatar color="primary" size="38">
-                       <span class="white--text headline" v-if="authed()">{{$auth.user().name[0]}}</span>
+                       <span class="white--text headline" v-if="authed()">{{$auth.user().firstName[0] + $auth.user().lastName[0]}}</span>
                        <v-icon color="white" v-else>mdi-account-circle</v-icon>
                    </v-avatar>
                 </v-list-item-avatar>
 
-                <v-list-item-title>{{this.$auth.user().name != null ? this.$auth.user().name : "Unknown"}}</v-list-item-title>
+                <v-list-item-title>{{this.$auth.user().firstName + " " + this.$auth.user().lastName}}</v-list-item-title>
 
                 <v-btn
                         icon

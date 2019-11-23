@@ -127,7 +127,7 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="35" parent="11" name="name">
+    <column id="35" parent="11" name="firstName">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
@@ -150,7 +150,7 @@
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+      <DefaultExpression>1</DefaultExpression>
     </column>
     <column id="40" parent="11" name="remember_token">
       <Position>7</Position>
@@ -164,12 +164,27 @@
       <Position>9</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <index id="43" parent="11" name="users_email_unique">
+    <column id="43" parent="11" name="lastName">
+      <Position>10</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="11" name="username">
+      <Position>11</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="45" parent="11" name="users_email_unique">
       <ColNames>email</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="44" parent="11">
+    <index id="46" parent="11" name="users_username_uindex">
+      <ColNames>username</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="47" parent="11">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>

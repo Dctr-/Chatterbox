@@ -6,7 +6,7 @@
                     <v-flex class="full-width">
                         <img alt="Chatterbox Logo" src="../../assets/Chatterbox_Black_Transparent.svg" id="logo">
                     </v-flex>
-                    <v-form ref="form" class="pa-3">
+                    <v-form ref="form" class="px-3" @submit.prevent="login()" type="">
                         <v-text-field
                                 v-model="email"
                                 :rules="[emailRule, required()]"
@@ -24,10 +24,13 @@
                                 class="pb-2"
                         ></v-text-field>
                         <v-flex class="text-sm-center">
-                            <v-btn color="primary" class="ma-auto" @click="login()">Login</v-btn>
+                            <v-btn color="primary" type="submit">Login</v-btn>
                         </v-flex>
                         <v-flex class="text-sm-center pt-4" v-show="has_error">
                             <p class="error--text mb-0">Invalid login, try again.</p>
+                        </v-flex>
+                        <v-flex class="text-sm-center">
+                            <p class="pt-4">Don't have an account? <router-link to="register">Register</router-link> instead.</p>
                         </v-flex>
                     </v-form>
                 </v-card-text>
@@ -38,8 +41,8 @@
     export default {
         data() {
             return {
-                email: null,
-                password: null,
+                email: '',
+                password: '',
                 valid: true,
                 has_error: false,
                 emailRule: v => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -77,7 +80,12 @@
 
 <style scoped>
     #logo {
-        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
         filter: invert(0.2);
+    }
+
+    p {
+        margin-bottom: 5px;
     }
 </style>

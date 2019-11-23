@@ -14,10 +14,12 @@
             return {
                 headers: [
                     {text: "ID", value: "id", align: "center", sortable: true},
-                    {text: "Name", value: "name", align: "center", sortable: true},
+                    {text: "Username", value: "username", align: "center", sortable: true},
+                    {text: "Firt Name", value: "firstName", align: "center", sortable: true},
+                    {text: "Last Name", value: "lastName", align: "center", sortable: true},
                     {text: "Email", value: "email", align: "center", sortable: true},
-                    {text: "Register Date", value: "register_date", align: "center", sortable: true},
-                    {text: "Role", value: "role", align: "center", sortable: true},
+                    {text: "Register Date", value: "registered", align: "center", sortable: true},
+                    {text: "Role", value: "roleString", align: "center", sortable: true},
                 ],
                 users: [],
                 loading: false,
@@ -33,20 +35,11 @@
                     url: `users`,
                     method: 'GET'
                 }).then((res) => {
-                    console.log(res);
-                    console.log(res.data);
-                    console.log(res.data.users);
                     res.data.users.forEach(function(user) {
-                        self.users.push(
-                            {
-                                id: user.id,
-                                name: user.name,
-                                email: user.email,
-                                register_date: user.created_at,
-                                role: user.role == 1 ? "User" : "Admin"
-                            }
-                        );
-                    })
+                        user.roleString = user.role == 1 ? "User" : "Admin";
+                        user.registered = self.formatDate(user.created_at);
+                    });
+                    self.users = res.data.users;
                 });
             }
         }
