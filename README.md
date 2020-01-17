@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Chatterbox is an open-source social media web app built out of curiousity. It's still heavily in development, but the barebones are there including login/register pages, role based authentication back end, and a simple dashboard.
+Chatterbox is an open-source social media web app built out of curiousity. It's still heavily in development, but the barebones are there including login/register pages, role based authentication, and a simple dashboard.
 
 ## Stack
 
