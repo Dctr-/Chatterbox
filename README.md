@@ -13,12 +13,15 @@ Chatterbox is a one page web app built ontop of PHP, SQLite, Javascript, and NGI
 These photos are all subject to change, and more will be added and updated as development continues.
 
 Login Page:
+
 ![Login Page](https://i.imgur.com/fNRSEYq.png)
 
 Register Page:
+
 ![Register Page](https://i.imgur.com/uh2rg9L.png)
 
 Admin Dashboard:
+
 ![Admin Dashboard](https://i.imgur.com/ZKWEi8r.png)
 
 ------------
