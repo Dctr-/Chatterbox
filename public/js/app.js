@@ -93042,7 +93042,7 @@ var config = {
   },
   refreshData: {
     url: 'auth/refresh',
-    method: 'GET',
+    method: 'POST',
     enabled: true,
     interval: 30
   }
